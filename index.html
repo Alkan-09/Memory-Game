@@ -10,17 +10,16 @@
 </head>
 
 <body>
-    <div class="game">
+    <div onload="startGame()" class="game">
         <div class="controls">
-            <button>Start</button>
             <div class="stats">
-                <div class="moves">0 moves</div>
-                <div class="timer">Time: 60 sec</div>
+                <div class="moves">Hamleler: 0</div>
+                <div class="timer">Kalan süre: 60 sn</div>
             </div>
         </div>
         <div class="board-container">
             <div class="board" data-dimension="4"></div>
-            <div class="win">You won!</div>
+            <div class="win">Kazandiniz!</div>
         </div>
     </div>
     <script src="app.js"></script>

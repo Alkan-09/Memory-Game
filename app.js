@@ -69,23 +69,21 @@ const generateGame = () => {
     selectors.board.replaceWith(parser.querySelector('.board'))
 }
 
-const startGame = () => {
+window.onload = function() {
     state.gameStarted = true
-    selectors.start.classList.add('disabled')
 
     state.loop = setInterval(() => {
-        state.totalTime--
+    state.totalTime--
 
-        selectors.moves.innerText = `${state.totalFlips} moves`
-        selectors.timer.innerText = `Time: ${state.totalTime} sec`
+        selectors.moves.innerText = `Hamleler: ${state.totalFlips} `
+        selectors.timer.innerText = `Kalan süre: ${state.totalTime} sn`
         if (state.totalTime == 0) {
             setTimeout(() => {
                 selectors.boardContainer.classList.add('flipped')
                 selectors.win.innerHTML = `
                     <span class="win-text">
-                        You lose hahah<br />
-                        with <span class="highlight">${state.totalFlips}</span> moves<br />
-                        left <span class="highlight">${state.totalTime}</span> seconds
+                        Süreniz bitti..<br />
+                        <span class="highlight">${state.totalFlips}</span> Hamle yaptiniz.<br />
                     </span>
                 `
                 clearInterval(state.loop)
@@ -131,9 +129,9 @@ const flipCard = card => {
             selectors.boardContainer.classList.add('flipped')
             selectors.win.innerHTML = `
                 <span class="win-text">
-                    You won!<br />
-                    with <span class="highlight">${state.totalFlips}</span> moves<br />
-                    left <span class="highlight">${state.totalTime}</span> seconds
+                    Kazandiniz!<br />
+                    <span class="highlight">${state.totalFlips}</span> Hamle yaptiniz<br />
+                    <span class="highlight">${state.totalTime}</span> saniyeniz kaldi
                 </span>
             `
 
