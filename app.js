@@ -3,17 +3,40 @@ const selectors = {
     board: document.querySelector('.board'),
     moves: document.querySelector('.moves'),
     timer: document.querySelector('.timer'),
+    win: document.querySelector('.win'),
     start: document.querySelector('button'),
-    win: document.querySelector('.win')
+    controllers: document.querySelector('.start'),
+    controls: document.querySelector(".controlscontainer"),
+    time: document.querySelector("time"),
+    popupOpen: document.querySelector(".container"),
 }
+
+let addPlayer = document.getElementById("addToDo");
+let inputText = document.getElementById("inputText");
+let paragraph = document.createElement("p");
+paragraph.innerHTML = inputText.value;
+
+
+
 
 const state = {
     gameStarted: false,
     flippedCards: 0,
     totalFlips: 0,
     totalTime: 60,
+    time: (time.value),
     loop: null
 }
+
+
+function start() {
+    controls.classList.add("hide");
+    controllers.classList.add("hide");
+    controls.classList.remove("controls-container");
+    controllers.classList.remove("button");
+}
+
+
 
 const shuffle = array => {
     const clonedArray = [...array]
@@ -69,27 +92,59 @@ const generateGame = () => {
     selectors.board.replaceWith(parser.querySelector('.board'))
 }
 
-window.onload = function() {
+function startGame() {
     state.gameStarted = true
-
+    selectors.start.classList.add('disabled');
+    selectors.start.classList.add('hide');
+    selectors.controls.classList.add('hide');
+    let selectedvalue = document.getElementById("time").value;
     state.loop = setInterval(() => {
-    state.totalTime--
+    selectedvalue--
 
         selectors.moves.innerText = `Hamleler: ${state.totalFlips} `
-        selectors.timer.innerText = `Kalan süre: ${state.totalTime} sn`
-        if (state.totalTime == 0) {
+        selectors.timer.innerText = `Kalan süre: ${selectedvalue} sn`
+        if (selectedvalue == 0) {
             setTimeout(() => {
-                selectors.boardContainer.classList.add('flipped')
-                selectors.win.innerHTML = `
-                    <span class="win-text">
-                        Süreniz bitti..<br />
-                        <span class="highlight">${state.totalFlips}</span> Hamle yaptiniz.<br />
-                    </span>
-                `
+                selectors.popupOpen.style.visibility = "visible";
+                
                 clearInterval(state.loop)
             })
         }
     }, 1000)
+        addPlayer.addEventListener("click", function(){
+        selectors.boardContainer.classList.add('flipped')
+        selectors.popupOpen.style.visibility = "hidden";
+    
+        let div = document.createElement("p");
+        div.setAttribute('class', 'to-do-element');
+    
+        selectors.boardContainer.appendChild(div);
+
+        let paragraph = document.createElement("p");
+        paragraph.classList.add("hide");
+        div.appendChild(paragraph);
+        paragraph.innerHTML = inputText.value;
+    
+        inputText.value = "";
+        selectors.win.innerHTML = `
+            <span class="win-text">
+            <table>
+                <tr>
+                    <th>Oyuncu</th>
+                    <th>Kalan Süre</th>
+                    <th>Hamleler</th>
+                    <th>Skor</th>
+                </tr>
+                <tr>
+                    <td>${paragraph.innerHTML}</td>
+                    <td>${selectedvalue}</td>
+                    <td>${state.totalFlips}</td>
+                    <td>NaN</td>
+                </tr>
+            </table>
+            </span>
+        `
+    })
 }
 
 const flipBackCards = () => {
@@ -126,17 +181,11 @@ const flipCard = card => {
     }
     if (!document.querySelectorAll('.card:not(.flipped)').length) {
         setTimeout(() => {
-            selectors.boardContainer.classList.add('flipped')
-            selectors.win.innerHTML = `
-                <span class="win-text">
-                    Kazandiniz!<br />
-                    <span class="highlight">${state.totalFlips}</span> Hamle yaptiniz<br />
-                    <span class="highlight">${state.totalTime}</span> saniyeniz kaldi
-                </span>
-            `
+            selectors.popupOpen.style.visibility = "visible";
 
             clearInterval(state.loop)
         }, 1000)
+        
     }
 }
 
