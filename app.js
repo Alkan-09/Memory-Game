@@ -15,7 +15,7 @@ let addPlayer = document.getElementById("addToDo");
 let inputText = document.getElementById("inputText");
 let paragraph = document.createElement("p");
 paragraph.innerHTML = inputText.value;
-
+let selectedvalue = document.getElementById("time").value;
 
 
 
@@ -24,7 +24,7 @@ const state = {
     flippedCards: 0,
     totalFlips: 0,
     totalTime: 60,
-    time: (time.value),
+    time: selectedvalue,
     loop: null
 }
 
