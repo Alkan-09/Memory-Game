@@ -9,6 +9,7 @@ const selectors = {
     controls: document.querySelector(".controlscontainer"),
     time: document.querySelector("time"),
     popupOpen: document.querySelector(".container"),
+    stats: document.querySelector(".stats")
 }
 
 let addPlayer = document.getElementById("addToDo");
@@ -73,7 +74,9 @@ const generateGame = () => {
         throw new Error("The dimension of the board must be an even number.")
     }
 
-    const alphabets = ['A', 'R', 'G', 'X', 'Z', 'W', 'L', 'V', 'T', 'Q']
+    const alphabets = ['A', 'R', 'G', 'X', 'Z', 'W', 'L', 'V', 'T', 'Q', 'B',
+     'C', 'D', 'E', 'Y', 'U', 'I', 'O', 'P', 'S', 'D', 'F', 'H', 'J', 'K', '&',
+      'N', 'M', '0', '9', '1', '2', '3', '4', '5', '6', '7', '8']
     const picks = pickRandom(alphabets, (dimensions * dimensions) / 2) 
     const items = shuffle([...picks, ...picks])
     const cards = `
@@ -114,6 +117,7 @@ function startGame() {
         addPlayer.addEventListener("click", function(){
         selectors.boardContainer.classList.add('flipped')
         selectors.popupOpen.style.visibility = "hidden";
+        selectors.stats.style.visibility = "hidden";
     
         let div = document.createElement("p");
         div.setAttribute('class', 'to-do-element');
