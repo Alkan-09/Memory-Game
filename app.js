@@ -18,7 +18,7 @@ let paragraph = document.createElement("p");
 paragraph.innerHTML = inputText.value;
 let selectedvalue = document.getElementById("time").value;
 
-
+let gamevalue = document.getElementById("gamevalue").value;
 
 const state = {
     gameStarted: false,
@@ -67,33 +67,6 @@ const pickRandom = (array, items) => {
     return randomPicks
 }
 
-const generateGame = () => {
-    const dimensions = selectors.board.getAttribute('data-dimension')  
-
-    if (dimensions % 2 !== 0) {
-        throw new Error("The dimension of the board must be an even number.")
-    }
-
-    const alphabets = ['A', 'R', 'G', 'X', 'Z', 'W', 'L', 'V', 'T', 'Q', 'B',
-     'C', 'D', 'E', 'Y', 'U', 'I', 'O', 'P', 'S', 'D', 'F', 'H', 'J', 'K', '&',
-      'N', 'M', '0', '9', '1', '2', '3', '4', '5', '6', '7', '8']
-    const picks = pickRandom(alphabets, (dimensions * dimensions) / 2) 
-    const items = shuffle([...picks, ...picks])
-    const cards = `
-        <div class="board" style="grid-template-columns: repeat(${dimensions}, auto)">
-            ${items.map(item => `
-                <div class="card">
-                    <div class="card-front"></div>
-                    <div class="card-back">${item}</div>
-                </div>
-            `).join('')}
-       </div>
-    `
-    
-    const parser = new DOMParser().parseFromString(cards, 'text/html')
-
-    selectors.board.replaceWith(parser.querySelector('.board'))
-}
 
 function startGame() {
     state.gameStarted = true
@@ -101,6 +74,50 @@ function startGame() {
     selectors.start.classList.add('hide');
     selectors.controls.classList.add('hide');
     let selectedvalue = document.getElementById("time").value;
+    
+    const generateGame = () => {
+        let dimensions = selectors.board.getAttribute('data-dimension');
+        let gamevalue = document.getElementById("gamevalue").value;
+        if (gamevalue) {
+            if (gamevalue == 4) {
+                dimensions = "4";
+                console.log("4");
+            }
+            if (gamevalue == 6) {
+                dimensions = "6";
+                console.log("6");
+            }
+            if (gamevalue == 8) {
+                dimensions = "8";
+                console.log("8");
+            }
+        }
+    
+        if (dimensions % 2 !== 0) {
+            throw new Error("The dimension of the board must be an even number.")
+        }
+    
+        const alphabets = ['A', 'R', 'G', 'X', 'Z', 'W', 'L', 'V', 'T', 'Q', 'B',
+         'C', 'D', 'E', 'Y', 'U', 'I', 'O', 'P', 'S', 'D', 'F', 'H', 'J', 'K', '&',
+          'N', 'M', '0', '9', '1', '2', '3', '4', '5', '6', '7', '8']
+        const picks = pickRandom(alphabets, (dimensions * dimensions) / 2) 
+        const items = shuffle([...picks, ...picks])
+        const cards = `
+            <div class="board" style="grid-template-columns: repeat(${dimensions}, auto)">
+                ${items.map(item => `
+                    <div class="card">
+                        <div class="card-front"></div>
+                        <div class="card-back">${item}</div>
+                    </div>
+                `).join('')}
+           </div>
+        `
+        
+        const parser = new DOMParser().parseFromString(cards, 'text/html')
+    
+        selectors.board.replaceWith(parser.querySelector('.board'))
+    }
+    
     state.loop = setInterval(() => {
     selectedvalue--
 
@@ -149,6 +166,7 @@ function startGame() {
             </span>
         `
     })
+    generateGame()
 }
 
 const flipBackCards = () => {
@@ -206,5 +224,5 @@ const attachEventListeners = () => {
     })
 }
 
-generateGame()
+
 attachEventListeners()

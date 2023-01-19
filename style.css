@@ -96,9 +96,9 @@ html {
 .win {
     position: absolute;
     top: 0;
-    left: -40%;
-    width: 180%;
-    height: 100%;
+    left: -30px;
+    width: 600px;
+    height: 500px;
     text-align: center;
     background: #FDF8E6;
     transform: rotateY(180deg) rotateZ(50deg);
