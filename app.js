@@ -27,8 +27,9 @@ const state = {
     totalFlips: 0,
     totalTime: 60,
     time: selectedvalue,
-    score: 1000,
+    score: 100,
     flp: 20,
+    nflp: 2,
     loop: null
 }
 
@@ -161,7 +162,7 @@ function startGame() {
                 </tr>
                 <tr>
                     <td>${paragraph.innerHTML}</td>
-                    <td>${selectedvalue}</td>
+                    <td>${selectedvalue} sn </td>
                     <td>${state.totalFlips}</td>
                     <td>${state.score}</td>
                 </tr>
@@ -183,7 +184,8 @@ const flipBackCards = () => {
 const flipCard = card => {
     state.flippedCards++
     state.totalFlips++
-
+    state.score = state.score - state.nflp;
+            selectors.score.innerText = `Skor: ${state.score} `
     if (!state.gameStarted) {
         startGame()
     }
