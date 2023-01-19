@@ -9,7 +9,8 @@ const selectors = {
     controls: document.querySelector(".controlscontainer"),
     time: document.querySelector("time"),
     popupOpen: document.querySelector(".container"),
-    stats: document.querySelector(".stats")
+    stats: document.querySelector(".stats"),
+    score: document.querySelector(".score"),
 }
 
 let addPlayer = document.getElementById("addToDo");
@@ -26,6 +27,8 @@ const state = {
     totalFlips: 0,
     totalTime: 60,
     time: selectedvalue,
+    score: 1000,
+    flp: 20,
     loop: null
 }
 
@@ -160,7 +163,7 @@ function startGame() {
                     <td>${paragraph.innerHTML}</td>
                     <td>${selectedvalue}</td>
                     <td>${state.totalFlips}</td>
-                    <td>NaN</td>
+                    <td>${state.score}</td>
                 </tr>
             </table>
             </span>
@@ -195,6 +198,8 @@ const flipCard = card => {
         if (flippedCards[0].innerText === flippedCards[1].innerText) {
             flippedCards[0].classList.add('matched')
             flippedCards[1].classList.add('matched')
+            state.score = state.score + state.flp;
+            selectors.score.innerText = `Skor: ${state.score} `
         }
 
         setTimeout(() => {
