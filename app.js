@@ -18,6 +18,7 @@ let inputText = document.getElementById("inputText");
 let paragraph = document.createElement("p");
 paragraph.innerHTML = inputText.value;
 let selectedvalue = document.getElementById("time").value;
+let scrtmr = document.getElementById("time").value;
 
 let gamevalue = document.getElementById("gamevalue").value;
 
@@ -78,7 +79,7 @@ function startGame() {
     selectors.start.classList.add('hide');
     selectors.controls.classList.add('hide');
     let selectedvalue = document.getElementById("time").value;
-    
+    let scrtmr = document.getElementById("time").value;
     const generateGame = () => {
         let dimensions = selectors.board.getAttribute('data-dimension');
         let gamevalue = document.getElementById("gamevalue").value;
@@ -149,20 +150,20 @@ function startGame() {
         paragraph.classList.add("hide");
         div.appendChild(paragraph);
         paragraph.innerHTML = inputText.value;
-    
+            scrtmr = scrtmr - selectedvalue;
         inputText.value = "";
         selectors.win.innerHTML = `
             <span class="win-text">
             <table>
                 <tr>
                     <th>Oyuncu</th>
-                    <th>Kalan Süre</th>
+                    <th>Süre</th>
                     <th>Hamleler</th>
                     <th>Skor</th>
                 </tr>
                 <tr>
                     <td>${paragraph.innerHTML}</td>
-                    <td>${selectedvalue} sn </td>
+                    <td>${scrtmr} sn </td>
                     <td>${state.totalFlips}</td>
                     <td>${state.score}</td>
                 </tr>
